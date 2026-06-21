@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaming Lovers - متجر الألعاب الإلكترونية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+/* ===== THEME VARIABLES ===== */
+:root{
+  --bg-primary:#0d0d1a;
+  --bg-secondary:#131326;
+  --bg-card:#1a1a2e;
+  --bg-card-hover:#1f1f3a;
+  --border:#2a2a45;
+  --text-primary:#ffffff;
+  --text-secondary:#a0a0c0;
+  --text-muted:#606080;
+  --accent:#e74c3c;
+  --accent2:#3498db;
+  --accent3:#2ecc71;
+  --gold:#f5a623;
+  --nav-bg:rgba(13,13,26,0.97);
+  --shadow:0 4px 30px rgba(0,0,0,0.4);
+  --input-bg:#1a1a2e;
+  --filter-bg:#1a1a2e;
+}
+body.light-mode{
+  --bg-primary:#f0f2f8;
+  --bg-secondary:#e4e8f5;
+  --bg-card:#ffffff;
+  --bg-card-hover:#f8f9ff;
+  --border:#d0d5e8;
+  --text-primary:#1a1a2e;
+  --text-secondary:#4a4a6a;
+  --text-muted:#8a8aaa;
+  --nav-bg:rgba(255,255,255,0.97);
+  --shadow:0 4px 20px rgba(0,0,0,0.1);
+  --input-bg:#ffffff;
+  --filter-bg:#ffffff;
+}
+
+body{font-family:'Tajawal',sans-serif;background:var(--bg-primary);color:var(--text-primary);transition:background .3s,color .3s;overflow-x:hidden}
+
+/* ===== LOADING ===== */
+#loadingScreen{position:fixed;inset:0;background:linear-gradient(135deg,#0d0d1a,#1a0a2e);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s,visibility .6s;gap:30px}
+#loadingScreen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-logo{font-size:22px;font-weight:900;color:#fff}
+.loader-logo span{background:linear-gradient(90deg,#e74c3c,#3498db,#2ecc71);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.loader-sub{font-size:13px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:-20px}
+
+/* ===== GHOST CSS ===== */
+#ghost{position:relative;scale:0.8}
+#red{animation:upNDown infinite 0.5s;position:relative;width:140px;height:140px;display:grid;grid-template-columns:repeat(14,1fr);grid-template-rows:repeat(14,1fr);grid-column-gap:0;grid-row-gap:0;grid-template-areas:"a1 a2 a3 a4 a5 top0 top0 top0 top0 a10 a11 a12 a13 a14" "b1 b2 b3 top1 top1 top1 top1 top1 top1 top1 top1 b12 b13 b14" "c1 c2 top2 top2 top2 top2 top2 top2 top2 top2 top2 top2 c13 c14" "d1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 d14" "e1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 e14" "f1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 f14" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "st0 st0 an4 st1 an7 st2 an10 an10 st3 an13 st4 an16 st5 st5" "an1 an2 an3 an5 an6 an8 an9 an9 an11 an12 an14 an15 an17 an18"}
+@keyframes upNDown{0%,49%{transform:translateY(0)}50%,100%{transform:translateY(-10px)}}
+#top0,#top1,#top2,#top3,#top4,#st0,#st1,#st2,#st3,#st4,#st5{background-color:red}
+#top0{grid-area:top0}#top1{grid-area:top1}#top2{grid-area:top2}#top3{grid-area:top3}#top4{grid-area:top4}
+#st0{grid-area:st0}#st1{grid-area:st1}#st2{grid-area:st2}#st3{grid-area:st3}#st4{grid-area:st4}#st5{grid-area:st5}
+#an1{grid-area:an1;animation:flicker0 infinite 0.5s}#an18{grid-area:an18;animation:flicker0 infinite 0.5s}
+#an2{grid-area:an2;animation:flicker1 infinite 0.5s}#an17{grid-area:an17;animation:flicker1 infinite 0.5s}
+#an3{grid-area:an3;animation:flicker1 infinite 0.5s}#an16{grid-area:an16;animation:flicker1 infinite 0.5s}
+#an4{grid-area:an4;animation:flicker1 infinite 0.5s}#an15{grid-area:an15;animation:flicker1 infinite 0.5s}
+#an5{grid-area:an5}#an6{grid-area:an6;animation:flicker0 infinite 0.5s}
+#an7{grid-area:an7;animation:flicker0 infinite 0.5s}#an8{grid-area:an8;animation:flicker0 infinite 0.5s}
+#an9{grid-area:an9;animation:flicker1 infinite 0.5s}#an10{grid-area:an10;animation:flicker1 infinite 0.5s}
+#an11{grid-area:an11;animation:flicker0 infinite 0.5s}#an12{grid-area:an12;animation:flicker0 infinite 0.5s}
+#an13{grid-area:an13;animation:flicker0 infinite 0.5s}#an14{grid-area:an14}
+@keyframes flicker0{0%,49%{background-color:red}50%,100%{background-color:transparent}}
+@keyframes flicker1{0%,49%{background-color:transparent}50%,100%{background-color:red}}
+#eye{width:40px;height:50px;position:absolute;top:30px;left:10px}
+#eye::before{content:"";background-color:white;width:20px;height:50px;transform:translateX(10px);display:block;position:absolute}
+#eye::after{content:"";background-color:white;width:40px;height:30px;transform:translateY(10px);display:block;position:absolute}
+#eye1{width:40px;height:50px;position:absolute;top:30px;right:30px}
+#eye1::before{content:"";background-color:white;width:20px;height:50px;transform:translateX(10px);display:block;position:absolute}
+#eye1::after{content:"";background-color:white;width:40px;height:30px;transform:translateY(10px);display:block;position:absolute}
+#pupil{width:20px;height:20px;background-color:blue;position:absolute;top:50px;left:10px;z-index:1;animation:eyesMovement infinite 3s}
+#pupil1{width:20px;height:20px;background-color:blue;position:absolute;top:50px;right:50px;z-index:1;animation:eyesMovement infinite 3s}
+@keyframes eyesMovement{0%,49%{transform:translateX(0)}50%,99%{transform:translateX(10px)}100%{transform:translateX(0)}}
+#shadow{background-color:black;width:140px;height:140px;position:absolute;border-radius:50%;transform:rotateX(80deg);filter:blur(20px);top:80%;animation:shadowMovement infinite 0.5s}
+@keyframes shadowMovement{0%,49%{opacity:0.5}50%,100%{opacity:0.2}}
+
+/* ===== HEADER ===== */
+header{background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);transition:background .3s}
+.header-inner{max-width:1400px;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.logo{font-size:24px;font-weight:900;color:var(--text-primary);text-decoration:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo-icon{font-size:26px}
+.logo-text{background:linear-gradient(90deg,#e74c3c,#3498db,#2ecc71);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.search-wrap{flex:1;max-width:460px;display:flex;gap:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);transition:border-color .2s}
+.search-wrap:focus-within{border-color:var(--accent2)}
+.search-wrap input{flex:1;padding:10px 16px;border:none;background:var(--input-bg);color:var(--text-primary);font-family:'Tajawal',sans-serif;font-size:14px;outline:none}
+.search-wrap input::placeholder{color:var(--text-muted)}
+.search-wrap button{background:var(--accent2);border:none;padding:0 18px;color:#fff;font-size:16px;cursor:pointer;transition:background .2s}
+.search-wrap button:hover{background:#2980b9}
+.header-actions{display:flex;align-items:center;gap:10px}
+
+/* THEME TOGGLE */
+:root{
+  --bg-primary:#0d0d1a;
+  --bg-secondary:#131326;
+  --bg-card:#1a1a2e;
+  --bg-card-hover:#1f1f3a;
+  --border:#2a2a45;
+  --text-primary:#ffffff;
+  --text-secondary:#a0a0c0;
+  --text-muted:#606080;
+  --accent:#e74c3c;
+  --accent2:#3498db;
+  --accent3:#2ecc71;
+  --gold:#f5a623;
+  --nav-bg:rgba(13,13,26,0.97);
+  --shadow:0 4px 30px rgba(0,0,0,0.4);
+  --input-bg:#1a1a2e;
+  --filter-bg:#1a1a2e;
+}
+body.light-mode{
+  --bg-primary:#f0f2f8;
+  --bg-secondary:#e4e8f5;
+  --bg-card:#ffffff;
+  --bg-card-hover:#f8f9ff;
+  --border:#d0d5e8;
+  --text-primary:#1a1a2e;
+  --text-secondary:#4a4a6a;
+  --text-muted:#8a8aaa;
+  --nav-bg:rgba(255,255,255,0.97);
+  --shadow:0 4px 20px rgba(0,0,0,0.1);
+  --input-bg:#ffffff;
+  --filter-bg:#ffffff;
+}
+ 
+body{font-family:'Tajawal',sans-serif;background:var(--bg-primary);color:var(--text-primary);transition:background .3s,color .3s;overflow-x:hidden}
+ 
+/* ===== LOADING ===== */
+#loadingScreen{position:fixed;inset:0;background:linear-gradient(135deg,#0d0d1a,#1a0a2e);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s,visibility .6s;gap:30px}
+#loadingScreen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-logo{font-size:22px;font-weight:900;color:#fff}
+.loader-logo span{background:linear-gradient(90deg,#e74c3c,#3498db,#2ecc71);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.loader-sub{font-size:13px;color:rgba(255,255,255,0.4);letter-spacing:2px;text-transform:uppercase;margin-top:-20px}
+ 
+/* ===== GHOST CSS ===== */
+#ghost{position:relative;scale:0.8}
+#red{animation:upNDown infinite 0.5s;position:relative;width:140px;height:140px;display:grid;grid-template-columns:repeat(14,1fr);grid-template-rows:repeat(14,1fr);grid-column-gap:0;grid-row-gap:0;grid-template-areas:"a1 a2 a3 a4 a5 top0 top0 top0 top0 a10 a11 a12 a13 a14" "b1 b2 b3 top1 top1 top1 top1 top1 top1 top1 top1 b12 b13 b14" "c1 c2 top2 top2 top2 top2 top2 top2 top2 top2 top2 top2 c13 c14" "d1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 d14" "e1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 e14" "f1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 f14" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4" "st0 st0 an4 st1 an7 st2 an10 an10 st3 an13 st4 an16 st5 st5" "an1 an2 an3 an5 an6 an8 an9 an9 an11 an12 an14 an15 an17 an18"}
+@keyframes upNDown{0%,49%{transform:translateY(0)}50%,100%{transform:translateY(-10px)}}
+#top0,#top1,#top2,#top3,#top4,#st0,#st1,#st2,#st3,#st4,#st5{background-color:red}
+#top0{grid-area:top0}#top1{grid-area:top1}#top2{grid-area:top2}#top3{grid-area:top3}#top4{grid-area:top4}
+#st0{grid-area:st0}#st1{grid-area:st1}#st2{grid-area:st2}#st3{grid-area:st3}#st4{grid-area:st4}#st5{grid-area:st5}
+#an1{grid-area:an1;animation:flicker0 infinite 0.5s}#an18{grid-area:an18;animation:flicker0 infinite 0.5s}
+#an2{grid-area:an2;animation:flicker1 infinite 0.5s}#an17{grid-area:an17;animation:flicker1 infinite 0.5s}
+#an3{grid-area:an3;animation:flicker1 infinite 0.5s}#an16{grid-area:an16;animation:flicker1 infinite 0.5s}
+#an4{grid-area:an4;animation:flicker1 infinite 0.5s}#an15{grid-area:an15;animation:flicker1 infinite 0.5s}
+#an5{grid-area:an5}#an6{grid-area:an6;animation:flicker0 infinite 0.5s}
+#an7{grid-area:an7;animation:flicker0 infinite 0.5s}#an8{grid-area:an8;animation:flicker0 infinite 0.5s}
+#an9{grid-area:an9;animation:flicker1 infinite 0.5s}#an10{grid-area:an10;animation:flicker1 infinite 0.5s}
+#an11{grid-area:an11;animation:flicker0 infinite 0.5s}#an12{grid-area:an12;animation:flicker0 infinite 0.5s}
+#an13{grid-area:an13;animation:flicker0 infinite 0.5s}#an14{grid-area:an14}
+@keyframes flicker0{0%,49%{background-color:red}50%,100%{background-color:transparent}}
+@keyframes flicker1{0%,49%{background-color:transparent}50%,100%{background-color:red}}
+#eye{width:40px;height:50px;position:absolute;top:30px;left:10px}
+#eye::before{content:"";background-color:white;width:20px;height:50px;transform:translateX(10px);display:block;position:absolute}
+#eye::after{content:"";background-color:white;width:40px;height:30px;transform:translateY(10px);display:block;position:absolute}
+#eye1{width:40px;height:50px;position:absolute;top:30px;right:30px}
+#eye1::before{content:"";background-color:white;width:20px;height:50px;transform:translateX(10px);display:block;position:absolute}
+#eye1::after{content:"";background-color:white;width:40px;height:30px;transform:translateY(10px);display:block;position:absolute}
+#pupil{width:20px;height:20px;background-color:blue;position:absolute;top:50px;left:10px;z-index:1;animation:eyesMovement infinite 3s}
+#pupil1{width:20px;height:20px;background-color:blue;position:absolute;top:50px;right:50px;z-index:1;animation:eyesMovement infinite 3s}
+@keyframes eyesMovement{0%,49%{transform:translateX(0)}50%,99%{transform:translateX(10px)}100%{transform:translateX(0)}}
+#shadow{background-color:black;width:140px;height:140px;position:absolute;border-radius:50%;transform:rotateX(80deg);filter:blur(20px);top:80%;animation:shadowMovement infinite 0.5s}
+@keyframes shadowMovement{0%,49%{opacity:0.5}50%,100%{opacity:0.2}}
+ 
+/* ===== HEADER ===== */
+header{background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);transition:background .3s}
+.header-inner{max-width:1400px;margin:auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+.logo{font-size:24px;font-weight:900;color:var(--text-primary);text-decoration:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.logo-icon{font-size:26px}
+.logo-text{background:linear-gradient(90deg,#e74c3c,#3498db,#2ecc71);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.search-wrap{flex:1;max-width:460px;display:flex;gap:0;border-radius:10px;overflow:hidden;border:2px solid var(--border);transition:border-color .2s}
+.search-wrap:focus-within{border-color:var(--accent2)}
+.search-wrap input{flex:1;padding:10px 16px;border:none;background:var(--input-bg);color:var(--text-primary);font-family:'Tajawal',sans-serif;font-size:14px;outline:none}
+.search-wrap input::placeholder{color:var(--text-muted)}
+.search-wrap button{background:var(--accent2);border:none;padding:0 18px;color:#fff;font-size:16px;cursor:pointer;transition:background .2s}
+.search-wrap button:hover{background:#2980b9}
+.header-actions{display:flex;align-items:center;gap:10px}
+ 
+/* THEME TOGGLE */
+.theme-toggle{display:flex;align-items:center;background:var(--bg-card);border:1px solid var(--border);border-radius:30px;padding:4px;gap:2px}
+.theme-btn{background:none;border:none;cursor:pointer;width:32px;height:28px;border-radius:24px;font-size:14px;transition:all .25s;color:var(--text-secondary);display:flex;align-items:center;justify-content:center}
+.theme-btn.active{background:linear-gradient(135deg,var(--accent2),var(--accent));color:#fff;box-shadow:0 2px 8px rgba(52,152,219,0.4)}
+ 
+.cart-btn{background:var(--accent);color:#fff;border:none;border-radius:9px;padding:9px 18px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;position:relative;transition:all .2s}
+.cart-btn:hover{background:#c0392b;transform:translateY(-1px)}
+.cart-num{background:#fff;color:var(--accent);border-radius:50%;width:20px;height:20px;font-size:11px;font-weight:900;display:inline-flex;align-items:center;justify-content:center}
+.user-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);border-radius:9px;padding:9px 14px;font-family:'Tajawal',sans-serif;font-size:14px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .2s;position:relative}
+.user-btn:hover{border-color:var(--accent2)}
+ 
+.user-dropdown{position:absolute;top:calc(100% + 10px);left:0;min-width:200px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--shadow);padding:8px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .25s;z-index:50}
+.user-dropdown.open{opacity:1;visibility:visible;transform:translateY(0)}
+.user-dropdown a{display:flex;align-items:center;gap:10px;padding:10px 12px;color:var(--text-secondary);text-decoration:none;border-radius:8px;font-size:14px;transition:all .2s}
+.user-dropdown a:hover{background:var(--bg-card-hover);color:var(--text-primary)}
+.user-dropdown hr{border:none;border-top:1px solid var(--border);margin:6px 0}
+ 
+/* ===== SUBNAV ===== */
+.subnav{background:var(--bg-secondary);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none}
+.subnav::-webkit-scrollbar{display:none}
+.subnav-inner{max-width:1400px;margin:auto;padding:0 24px;display:flex;align-items:center;gap:0}
+.nav-tab{background:none;border:none;color:var(--text-secondary);font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;padding:14px 20px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:6px}
+.nav-tab:hover{color:var(--text-primary);border-bottom-color:var(--border)}
+.nav-tab.active{color:var(--accent2);border-bottom-color:var(--accent2);background:rgba(52,152,219,0.06)}
+ 
+/* ===== PROMO STRIP ===== */
+.promo-strip{background:linear-gradient(90deg,var(--accent) 0%,#c0392b 100%);color:#fff;padding:9px 0;overflow:hidden;position:relative}
+.promo-inner{display:flex;gap:60px;animation:marquee 22s linear infinite;width:max-content}
+.promo-inner span{white-space:nowrap;font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+ 
+/* ===== PAGE LAYOUT ===== */
+.page-wrap{max-width:1400px;margin:0 auto;padding:24px}
+ 
+/* ===== HERO BANNER ===== */
+.hero{background:linear-gradient(135deg,#0d0d1a 0%,#1a0a2e 50%,#0a1a2e 100%);border-radius:18px;padding:48px 48px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:30px;border:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(231,76,60,0.12) 0%,transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(52,152,219,0.10) 0%,transparent 60%);pointer-events:none}
+.light-mode .hero{background:linear-gradient(135deg,#1a1a4e 0%,#0f3460 100%)}
+.hero-content{position:relative;z-index:1}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(231,76,60,0.2);border:1px solid rgba(231,76,60,0.4);color:#e74c3c;padding:5px 14px;border-radius:30px;font-size:12px;font-weight:700;margin-bottom:16px}
+.hero h1{font-size:42px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:14px}
+.hero h1 .g{background:linear-gradient(90deg,#e74c3c,#3498db,#2ecc71);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{color:rgba(255,255,255,0.6);font-size:16px;line-height:1.7;margin-bottom:28px;max-width:480px}
+.hero-btns{display:flex;gap:12px}
+.btn-hero-main{background:linear-gradient(135deg,var(--accent),#c0392b);color:#fff;border:none;border-radius:10px;padding:13px 26px;font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-hero-main:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(231,76,60,0.35)}
+.btn-hero-2{background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.25);border-radius:10px;padding:13px 26px;font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.btn-hero-2:hover{border-color:#fff}
+.hero-visual{display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative;z-index:1;flex-shrink:0}
+.hero-stat{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 22px;text-align:center;backdrop-filter:blur(10px)}
+.hero-stat-num{font-size:26px;font-weight:900;color:#fff}
+.hero-stat-label{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px}
+ 
+/* ===== FILTER BAR ===== */
+.filter-bar{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:22px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.filter-bar label{font-size:13px;font-weight:700;color:var(--text-secondary);white-space:nowrap}
+.filter-select{background:var(--filter-bg);border:1px solid var(--border);color:var(--text-primary);border-radius:8px;padding:8px 12px;font-family:'Tajawal',sans-serif;font-size:13px;outline:none;cursor:pointer;min-width:130px;transition:border-color .2s}
+.filter-select:focus{border-color:var(--accent2)}
+.filter-group{display:flex;align-items:center;gap:8px}
+.results-count{margin-right:auto;font-size:13px;color:var(--text-muted)}
+.results-count strong{color:var(--text-primary)}
+ 
+/* ===== PRODUCTS GRID ===== */
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px}
+.product-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .28s;position:relative}
+.product-card:hover{border-color:var(--accent2);transform:translateY(-5px);box-shadow:0 16px 40px rgba(52,152,219,0.15)}
+.product-img-wrap{width:100%;height:210px;position:relative;overflow:hidden;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center}
+.product-img-wrap img{width:100%;height:100%;object-fit:contain;transition:transform .3s;padding:12px}
+.product-card:hover .product-img-wrap img{transform:scale(1.06)}
+.p-badge{position:absolute;top:10px;right:10px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:6px;z-index:2}
+.badge-sale{background:var(--accent);color:#fff}
+.badge-new{background:#27ae60;color:#fff}
+.badge-hot{background:var(--gold);color:#1a1a1a}
+.p-wish{position:absolute;top:10px;left:10px;background:var(--bg-card);border:1px solid var(--border);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;transition:all .2s;z-index:2}
+.p-wish:hover,.p-wish.active{border-color:#e74c3c;color:#e74c3c}
+.product-body{padding:16px}
+.p-brand{font-size:11px;color:var(--accent2);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.p-name{font-size:15px;font-weight:700;color:var(--text-primary);line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:42px}
+.p-stars{color:#f39c12;font-size:12px;margin-bottom:10px;display:flex;align-items:center;gap:5px}
+.p-stars span{color:var(--text-muted);font-size:11px}
+.p-price{display:flex;align-items:baseline;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.p-price .current{font-size:22px;font-weight:900;color:var(--text-primary)}
+.p-price .old{font-size:13px;color:var(--text-muted);text-decoration:line-through}
+.p-price .save{font-size:11px;background:rgba(231,76,60,0.12);color:var(--accent);padding:2px 8px;border-radius:5px;font-weight:700}
+.p-footer{display:flex;gap:8px}
+.add-btn{flex:1;background:linear-gradient(135deg,var(--accent2),#2980b9);color:#fff;border:none;border-radius:9px;padding:10px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+.add-btn:hover{opacity:.88;transform:translateY(-1px)}
+.add-btn:active{transform:scale(.97)}
+.quick-btn{background:var(--bg-secondary);border:1px solid var(--border);border-radius:9px;padding:10px 12px;cursor:pointer;font-size:14px;color:var(--text-secondary);transition:all .2s}
+.quick-btn:hover{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+ 
+/* ===== SECTION HEADER ===== */
+.sec-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.sec-title{font-size:22px;font-weight:800;color:var(--text-primary);display:flex;align-items:center;gap:10px}
+.sec-title::after{content:'';display:inline-block;width:30px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:3px;margin-right:4px}
+.see-all-btn{background:none;border:1px solid var(--border);color:var(--text-secondary);font-family:'Tajawal',sans-serif;font-size:13px;padding:7px 16px;border-radius:8px;cursor:pointer;transition:all .2s}
+.see-all-btn:hover{border-color:var(--accent2);color:var(--accent2)}
+ 
+/* ===== PAGINATION ===== */
+.pagination{display:flex;justify-content:center;gap:8px;margin-top:32px;flex-wrap:wrap}
+.page-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-secondary);border-radius:9px;width:38px;height:38px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.page-btn:hover,.page-btn.active{background:var(--accent2);border-color:var(--accent2);color:#fff}
+ 
+/* ===== PRODUCT MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:all .3s}
+.modal-overlay.open{opacity:1;visibility:visible}
+.modal-box{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;width:90%;max-width:860px;max-height:90vh;overflow-y:auto;position:relative;transform:scale(.94) translateY(20px);transition:transform .3s;scrollbar-width:thin}
+.modal-overlay.open .modal-box{transform:scale(1) translateY(0)}
+.modal-close{position:absolute;top:16px;left:16px;background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-secondary);border-radius:50%;width:36px;height:36px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;z-index:5}
+.modal-close:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.modal-img-side{background:var(--bg-secondary);border-left:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:320px;border-radius:20px 0 0 20px;padding:24px}
+.modal-img-side img{max-width:100%;max-height:280px;object-fit:contain}
+.modal-info-side{padding:32px 28px;display:flex;flex-direction:column;gap:12px}
+.modal-brand{font-size:12px;color:var(--accent2);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.modal-title{font-size:22px;font-weight:800;color:var(--text-primary);line-height:1.4}
+.modal-stars{color:#f39c12;font-size:14px}
+.modal-price-row{display:flex;align-items:baseline;gap:12px}
+.modal-price-row .current{font-size:28px;font-weight:900;color:var(--text-primary)}
+.modal-price-row .old{font-size:16px;color:var(--text-muted);text-decoration:line-through}
+.modal-desc{color:var(--text-secondary);font-size:14px;line-height:1.7}
+.qty-row{display:flex;align-items:center;gap:10px}
+.qty-btn{background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);width:36px;height:36px;border-radius:8px;font-size:18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center}
+.qty-btn:hover{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.qty-input{width:56px;text-align:center;background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:8px;padding:8px;font-family:'Tajawal',sans-serif;font-size:16px;outline:none}
+.modal-add-btn{background:linear-gradient(135deg,var(--accent3),#27ae60);color:#fff;border:none;border-radius:10px;padding:13px;font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:4px}
+.modal-add-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(46,204,113,0.35)}
+ 
+/* REVIEWS */
+.reviews-box{border-top:1px solid var(--border);padding:24px 28px}
+.reviews-box h4{font-size:16px;font-weight:700;margin-bottom:14px;color:var(--text-primary)}
+.review-card{background:var(--bg-secondary);border-radius:10px;padding:14px;margin-bottom:12px;border-right:3px solid var(--accent2)}
+.rev-author{font-weight:700;font-size:13px;color:var(--text-primary)}
+.rev-stars{color:#f39c12;font-size:13px;margin:3px 0}
+.rev-text{color:var(--text-secondary);font-size:13px;line-height:1.6}
+.add-review{margin-top:20px}
+.add-review h5{font-size:14px;font-weight:700;margin-bottom:12px;color:var(--text-primary)}
+.star-picker{display:flex;gap:6px;font-size:24px;margin-bottom:12px}
+.star-pick{cursor:pointer;opacity:.3;transition:all .2s}
+.star-pick.lit{opacity:1;transform:scale(1.1)}
+.rev-textarea{width:100%;padding:10px 14px;background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:9px;font-family:'Tajawal',sans-serif;font-size:13px;resize:vertical;min-height:80px;outline:none;margin-bottom:10px}
+.rev-textarea:focus{border-color:var(--accent2)}
+.submit-rev-btn{background:var(--accent2);color:#fff;border:none;border-radius:8px;padding:9px 20px;font-family:'Tajawal',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:opacity .2s}
+.submit-rev-btn:hover{opacity:.85}
+ 
+/* ===== CART SIDEBAR ===== */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:150;opacity:0;visibility:hidden;transition:all .3s}
+.cart-overlay.open{opacity:1;visibility:visible}
+.cart-panel{position:fixed;left:0;top:0;width:380px;height:100vh;background:var(--bg-card);border-left:1px solid var(--border);display:flex;flex-direction:column;z-index:151;transform:translateX(-100%);transition:transform .3s}
+.cart-overlay.open .cart-panel{transform:translateX(0)}
+.cart-head{display:flex;justify-content:space-between;align-items:center;padding:20px;border-bottom:1px solid var(--border)}
+.cart-head h3{font-size:18px;font-weight:800;color:var(--text-primary)}
+.cart-close{background:none;border:none;font-size:22px;cursor:pointer;color:var(--text-secondary);transition:color .2s}
+.cart-close:hover{color:var(--accent)}
+.cart-body{flex:1;overflow-y:auto;padding:16px;scrollbar-width:thin}
+.cart-empty-msg{text-align:center;color:var(--text-muted);padding:60px 20px;font-size:15px}
+.cart-item{display:flex;gap:12px;background:var(--bg-secondary);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border)}
+.ci-img{width:70px;height:70px;background:var(--bg-card);border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0}
+.ci-img img{width:100%;height:100%;object-fit:contain;padding:6px}
+.ci-info{flex:1;min-width:0}
+.ci-name{font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-price{color:var(--accent);font-weight:700;font-size:14px;margin-bottom:8px}
+.ci-controls{display:flex;align-items:center;gap:6px}
+.ci-ctrl-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);width:24px;height:24px;border-radius:5px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.ci-ctrl-btn:hover{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+.ci-qty{font-size:13px;font-weight:700;width:24px;text-align:center;color:var(--text-primary)}
+.ci-del{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px;margin-right:auto;transition:color .2s}
+.ci-del:hover{color:var(--accent)}
+.cart-foot{padding:16px 20px;border-top:1px solid var(--border)}
+.cart-total-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.cart-total-row span{font-size:16px;color:var(--text-secondary)}
+.cart-total-row strong{font-size:22px;font-weight:900;color:var(--text-primary)}
+.checkout-btn{width:100%;background:linear-gradient(135deg,var(--accent),#c0392b);color:#fff;border:none;border-radius:10px;padding:14px;font-family:'Tajawal',sans-serif;font-size:16px;font-weight:700;cursor:pointer;transition:all .2s}
+.checkout-btn:hover{opacity:.9;transform:translateY(-1px)}
+ 
+/* ===== AUTH MODAL ===== */
+.auth-box{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;width:90%;max-width:440px;padding:40px;position:relative;transform:scale(.94);transition:transform .3s}
+.modal-overlay.open .auth-box{transform:scale(1)}
+.auth-box h2{font-size:24px;font-weight:900;text-align:center;margin-bottom:28px;color:var(--text-primary)}
+.auth-form{display:flex;flex-direction:column;gap:14px}
+.auth-input{background:var(--bg-secondary);border:1px solid var(--border);color:var(--text-primary);border-radius:9px;padding:12px 14px;font-family:'Tajawal',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.auth-input:focus{border-color:var(--accent2)}
+.auth-input::placeholder{color:var(--text-muted)}
+.auth-submit{background:linear-gradient(135deg,var(--accent2),#2980b9);color:#fff;border:none;border-radius:9px;padding:13px;font-family:'Tajawal',sans-serif;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s}
+.auth-submit:hover{opacity:.9}
+.auth-switch{text-align:center;font-size:13px;color:var(--text-muted);margin-top:4px}
+.auth-switch a{color:var(--accent2);cursor:pointer;font-weight:600;text-decoration:none}
+ 
+/* ===== TOAST ===== */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--bg-card);border:1px solid var(--border);border-right:4px solid var(--accent3);color:var(--text-primary);padding:13px 22px;border-radius:12px;font-size:14px;font-weight:600;box-shadow:var(--shadow);z-index:999;opacity:0;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+ 
+/* ===== INSTAGRAM FLOAT ===== */
+.ig-float{position:fixed;bottom:28px;right:24px;background:linear-gradient(135deg,#f58529,#dd2a7b,#8134af,#515bd4);color:#fff;border:none;border-radius:50%;width:52px;height:52px;font-size:22px;cursor:pointer;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:all .2s;z-index:90;display:flex;align-items:center;justify-content:center;text-decoration:none}
+.ig-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(0,0,0,0.4)}
+.ig-tooltip{position:absolute;bottom:calc(100% + 10px);right:0;background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);padding:7px 12px;border-radius:8px;font-size:12px;white-space:nowrap;box-shadow:var(--shadow);opacity:0;visibility:hidden;transition:all .2s;font-family:'Tajawal',sans-serif;font-weight:700}
+.ig-float:hover .ig-tooltip{opacity:1;visibility:visible}
+ 
+/* ===== FOOTER ===== */
+footer{background:var(--bg-secondary);border-top:1px solid var(--border);padding:48px 24px 24px}
+.footer-inner{max-width:1400px;margin:auto}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}
+.footer-logo{font-size:22px;font-weight:900;color:var(--text-primary);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.footer-desc{color:var(--text-secondary);font-size:14px;line-height:1.75}
+.footer-social{display:flex;gap:10px;margin-top:16px}
+.soc-btn{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;text-decoration:none;transition:all .2s;border:1px solid var(--border);color:var(--text-secondary)}
+.soc-btn:hover{border-color:var(--accent2);color:var(--accent2)}
+.soc-btn.ig:hover{background:linear-gradient(135deg,#f58529,#dd2a7b);border-color:transparent;color:#fff}
+.footer-col h5{font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:16px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-col a{color:var(--text-secondary);text-decoration:none;font-size:14px;transition:color .2s}
+.footer-col a:hover{color:var(--accent2)}
+.footer-bottom{border-top:1px solid var(--border);padding-top:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{color:var(--text-muted);font-size:13px}
+.pay-icons{display:flex;gap:8px}
+.pay-ic{background:var(--bg-card);border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:11px;font-weight:700;color:var(--text-muted)}
+ 
+/* ===== RESPONSIVE ===== */
+@media(max-width:960px){
+  .modal-grid{grid-template-columns:1fr}
+  .modal-img-side{border-radius:20px 20px 0 0;border-left:none;border-bottom:1px solid var(--border);min-height:220px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .hero{flex-direction:column;padding:32px 28px}
+  .hero h1{font-size:32px}
+  .hero-visual{grid-template-columns:repeat(4,1fr)}
+}
+@media(max-width:640px){
+  .cart-panel{width:100%}
+  .header-inner{flex-wrap:wrap;height:auto;padding:12px 16px;gap:10px}
+  .search-wrap{max-width:100%;order:3;width:100%}
+  .hero{display:none}
+  .footer-grid{grid-template-columns:1fr}
+  .filter-bar{gap:10px}
+  .products-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+  .product-img-wrap{height:160px}
+}
+ 
+/* ===== CIRCULAR GALLERY ===== */
+.cg-section{padding:0 0 32px;position:relative}
+.cg-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:20px;padding:0 4px}
+.cg-title{font-size:22px;font-weight:800;color:var(--text-primary)}
+.cg-title span{color:var(--accent)}
+.cg-sub{font-size:13px;color:var(--text-muted)}
+.cg-track-wrap{position:relative;display:flex;align-items:center;gap:0}
+.cg-track{display:flex;gap:20px;overflow-x:auto;scroll-behavior:smooth;padding:16px 8px 20px;scrollbar-width:none;flex:1;cursor:grab}
+.cg-track:active{cursor:grabbing}
+.cg-track::-webkit-scrollbar{display:none}
+.cg-slide{flex:0 0 220px;background:var(--bg-card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .28s;position:relative}
+.cg-slide:hover{border-color:var(--accent);transform:translateY(-6px) scale(1.02);box-shadow:0 20px 48px rgba(231,76,60,0.2)}
+.cg-img-wrap{width:100%;height:180px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;overflow:hidden;font-size:60px}
+.cg-img-wrap img{width:100%;height:100%;object-fit:contain;padding:10px;transition:transform .3s}
+.cg-slide:hover .cg-img-wrap img{transform:scale(1.08)}
+.cg-label{padding:12px 14px 4px;font-size:14px;font-weight:700;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cg-price{padding:0 14px 14px;font-size:13px;font-weight:800;color:var(--accent)}
+.cg-arrow{background:var(--bg-card);border:1px solid var(--border);color:var(--text-primary);width:40px;height:40px;border-radius:50%;font-size:22px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0;z-index:2}
+.cg-arrow:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.cg-dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
+.cg-dot{width:8px;height:8px;border-radius:50%;background:var(--border);cursor:pointer;transition:all .2s}
+.cg-dot.active{background:var(--accent);width:22px;border-radius:4px}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div id="loadingScreen">
+  <div id="ghost">
+    <div id="red">
+      <div id="pupil"></div>
+      <div id="pupil1"></div>
+      <div id="eye"></div>
+      <div id="eye1"></div>
+      <div id="top0"></div>
+      <div id="top1"></div>
+      <div id="top2"></div>
+      <div id="top3"></div>
+      <div id="top4"></div>
+      <div id="st0"></div>
+      <div id="st1"></div>
+      <div id="st2"></div>
+      <div id="st3"></div>
+      <div id="st4"></div>
+      <div id="st5"></div>
+      <div id="an1"></div>
+      <div id="an2"></div>
+      <div id="an3"></div>
+      <div id="an4"></div>
+      <div id="an5"></div>
+      <div id="an6"></div>
+      <div id="an7"></div>
+      <div id="an8"></div>
+      <div id="an9"></div>
+      <div id="an10"></div>
+      <div id="an11"></div>
+      <div id="an12"></div>
+      <div id="an13"></div>
+      <div id="an14"></div>
+      <div id="an15"></div>
+      <div id="an16"></div>
+      <div id="an17"></div>
+      <div id="an18"></div>
+    </div>
+    <div id="shadow"></div>
+  </div>
+  <div class="loader-logo">🎮 <span>Gaming Lovers</span></div>
+  <div class="loader-sub">جاري التحميل...</div>
+</div>
+
+<!-- PROMO STRIP -->
+<div class="promo-strip">
+  <div class="promo-inner">
+    <span>🚚 <strong>شحن لجميع المحافظات</strong> توصيل سريع</span>
+    <span>💬 <strong>تواصل معنا</strong> عبر واتساب</span>
+    <span>✅ <strong>منتجات أصلية</strong> 100% مضمونة</span>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo"><span class="logo-icon">🎮</span><span class="logo-text">Gaming Lovers</span></a>
+    <div class="search-wrap">
+      <input type="text" id="searchInput" placeholder="ابحث عن منتج، ماركة، فئة...">
+      <button onclick="doSearch()">🔍</button>
+    </div>
+    <div class="header-actions">
+      <!-- THEME TOGGLE -->
+      <div class="theme-toggle">
+        <button class="theme-btn active" id="darkBtn" onclick="setTheme('dark')" title="مظهر ليلي">🌙</button>
+        <button class="theme-btn" id="lightBtn" onclick="setTheme('light')" title="مظهر نهاري">☀️</button>
+      </div>
+      <!-- USER -->
+      <div style="position:relative">
+        <button class="user-btn" id="userBtn" onclick="toggleUserMenu()">👤 <span id="userBtnLabel">حسابي</span> ▾</button>
+        <div class="user-dropdown" id="userDropdown">
+          <a href="#" onclick="openModal('loginModal');closeUserMenu()">🔑 تسجيل الدخول</a>
+          <a href="#" onclick="openModal('signupModal');closeUserMenu()">📝 إنشاء حساب</a>
+          <hr>
+          <a href="#" onclick="closeUserMenu()">⚙️ الإعدادات</a>
+          <a id="logoutLink" href="#" style="display:none" onclick="logout();closeUserMenu()">🚪 تسجيل خروج</a>
+        </div>
+      </div>
+      <!-- CART -->
+      <button class="cart-btn" onclick="openCart()">🛒 السلة <span class="cart-num" id="cartCount">0</span></button>
+    </div>
+  </div>
+  <!-- SUBNAV - Cards category removed -->
+  <div class="subnav">
+    <div class="subnav-inner">
+      <button class="nav-tab active" data-cat="all" onclick="switchCat(this)">🏠 الكل</button>
+      <button class="nav-tab" data-cat="consoles" onclick="switchCat(this)">🎮 أجهزة الألعاب</button>
+      <button class="nav-tab" data-cat="computers" onclick="switchCat(this)">💻 الحاسبات</button>
+      <button class="nav-tab" data-cat="accessories" onclick="switchCat(this)">🕹️ الملحقات</button>
+      <button class="nav-tab" data-cat="games" onclick="switchCat(this)">📀 الألعاب</button>
+      <button class="nav-tab" data-cat="chairs" onclick="switchCat(this)">🪑 الكراسي</button>
+      <button class="nav-tab" data-cat="monitors" onclick="switchCat(this)">🖥️ الشاشات</button>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="page-wrap">
+
+  <!-- HERO - Updated for Iraq -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-tag">🔥 عروض حصرية لفترة محدودة</div>
+      <h1>وجهتك الأولى<br>لعالم <span class="g">Gaming</span><br>في العراق 🇮🇶</h1>
+      <p>أكبر متجر متخصص في ألعاب الفيديو، الأجهزة، الإكسسوارات والبطاقات الرقمية — توصيل سريع لجميع المحافظات</p>
+      <div class="hero-btns">
+        <button class="btn-hero-main" onclick="switchCatByName('all')">تسوّق الآن</button>
+        <button class="btn-hero-2" onclick="switchCatByName('consoles')">أجهزة الألعاب ←</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-stat"><div class="hero-stat-num">+74</div><div class="hero-stat-label">منتج متوفر</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">+5K</div><div class="hero-stat-label">عميل راضٍ</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">سريع</div><div class="hero-stat-label">دعم فني</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">100%</div><div class="hero-stat-label">أصلية ومضمونة</div></div>
+    </div>
+  </div>
+
+  <!-- FILTER BAR - Updated prices for IQD -->
+  <div class="filter-bar">
+    <div class="filter-group">
+      <label>السعر:</label>
+      <select class="filter-select" id="priceFilter" onchange="applyFilters()">
+        <option value="">الكل</option>
+        <option value="0-100000">0 - 100,000 د.ع</option>
+        <option value="100000-300000">100,000 - 300,000 د.ع</option>
+        <option value="300000-800000">300,000 - 800,000 د.ع</option>
+        <option value="800000+">800,000+ د.ع</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>الماركة:</label>
+      <select class="filter-select" id="brandFilter" onchange="applyFilters()">
+        <option value="">الكل</option>
+        <option value="Sony">Sony</option>
+        <option value="Microsoft">Microsoft</option>
+        <option value="Nintendo">Nintendo</option>
+        <option value="Razer">Razer</option>
+        <option value="Logitech">Logitech</option>
+        <option value="Redragon">Redragon</option>
+        <option value="ASUS">ASUS</option>
+        <option value="EA Sports">EA Sports</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label>ترتيب:</label>
+      <select class="filter-select" id="sortFilter" onchange="applyFilters()">
+        <option value="default">الافتراضي</option>
+        <option value="price-asc">السعر: من الأقل</option>
+        <option value="price-desc">السعر: من الأعلى</option>
+        <option value="rating">الأعلى تقييماً</option>
+        <option value="name">الاسم أ-ي</option>
+      </select>
+    </div>
+    <div class="results-count" id="resultsCount">عرض <strong>0</strong> منتج</div>
+  </div>
+
+  <!-- PRODUCTS -->
+  <div class="sec-header">
+    <div class="sec-title" id="secTitle">🛒 جميع المنتجات</div>
+    <button class="see-all-btn">عرض الكل</button>
+  </div>
+  <div class="products-grid" id="productsGrid"></div>
+  <div class="pagination" id="pagination"></div>
+</div>
+
+<!-- FOOTER - Updated for Iraq -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">🎮 <span style="background:linear-gradient(90deg,#e74c3c,#3498db,#2ecc71);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Gaming Lovers</span></div>
+        <p class="footer-desc">متجرك المتخصص لألعاب الفيديو والإكسسوارات في العراق — منتجات أصلية 100%، شحن سريع، وخدمة عملاء على مدار الساعة.</p>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/gaminglovers.2021" target="_blank" class="soc-btn ig" title="إنستقرام">📸</a>
+          <a href="#" class="soc-btn" title="واتساب">📱</a>
+          <a href="#" class="soc-btn" title="فيسبوك">📘</a>
+          <a href="#" class="soc-btn" title="تيك توك">🎵</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>الفئات</h5>
+        <ul>
+          <li><a href="#">أجهزة الألعاب</a></li>
+          <li><a href="#">الحاسبات</a></li>
+          <li><a href="#">الملحقات</a></li>
+          <li><a href="#">الألعاب</a></li>
+          <li><a href="#">الكراسي والشاشات</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>الدعم</h5>
+        <ul>
+          <li><a href="#">تواصل معنا</a></li>
+          <li><a href="#">سياسة الإرجاع</a></li>
+          <li><a href="#">الشحن والتوصيل</a></li>
+          <li><a href="#">الأسئلة الشائعة</a></li>
+          <li><a href="#">تتبع الطلب</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>تابعنا</h5>
+        <ul>
+          <li><a href="https://www.instagram.com/gaminglovers.2021" target="_blank">📸 @gaminglovers.2021</a></li>
+          <li><a href="#">📱 واتساب</a></li>
+          <li><a href="#">📘 فيسبوك</a></li>
+          <li><a href="#">🎵 تيك توك</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Gaming Lovers. جميع الحقوق محفوظة.</p>
+      <div class="pay-icons">
+        <span class="pay-ic">VISA</span>
+        <span class="pay-ic">Mastercard</span>
+        <span class="pay-ic">Cash</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- INSTAGRAM FLOAT -->
+<a href="https://www.instagram.com/gaminglovers.2021" target="_blank" class="ig-float" style="position:fixed;bottom:28px;right:24px;z-index:90">
+  📸
+  <span class="ig-tooltip">@gaminglovers.2021</span>
+</a>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="productModal" onclick="handleOverlayClick(event,'productModal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('productModal')">✕</button>
+    <div class="modal-grid">
+      <div class="modal-img-side"><img id="mImg" src="" alt=""></div>
+      <div class="modal-info-side">
+        <div class="p-brand" id="mBrand"></div>
+        <div class="modal-title" id="mTitle"></div>
+        <div class="modal-stars" id="mStars"></div>
+        <div class="modal-price-row">
+          <span class="current" id="mPrice"></span>
+          <span class="old" id="mOld"></span>
+        </div>
+        <div class="modal-desc" id="mDesc"></div>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <input class="qty-input" type="number" id="qtyInput" value="1" min="1">
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+        <button class="modal-add-btn" id="mAddBtn">+ أضف إلى السلة</button>
+      </div>
+    </div>
+    <div class="reviews-box">
+      <h4>التقييمات والمراجعات</h4>
+      <div id="reviewsList"></div>
+      <div class="add-review">
+        <h5>أضف تقييمك</h5>
+        <div class="star-picker" id="starPicker">
+          <span class="star-pick" data-v="1">⭐</span>
+          <span class="star-pick" data-v="2">⭐</span>
+          <span class="star-pick" data-v="3">⭐</span>
+          <span class="star-pick" data-v="4">⭐</span>
+          <span class="star-pick" data-v="5">⭐</span>
+        </div>
+        <textarea class="rev-textarea" id="revText" placeholder="اكتب مراجعتك..."></textarea>
+        <button class="submit-rev-btn" onclick="submitReview()">إرسال</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART -->
+<div class="cart-overlay" id="cartOverlay" onclick="handleOverlayClick(event,'cartOverlay')">
+  <div class="cart-panel">
+    <div class="cart-head">
+      <h3>🛒 سلة التسوق</h3>
+      <button class="cart-close" onclick="closeCart()">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-foot">
+      <div class="cart-total-row">
+        <span>المجموع:</span>
+        <strong id="cartTotal">0 د.ع</strong>
+      </div>
+      <button class="checkout-btn" onclick="toast('🛍️ سيتم تطوير صفحة الدفع قريباً!')">الدفع →</button>
+    </div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal" onclick="handleOverlayClick(event,'loginModal')">
+  <div class="auth-box">
+    <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+    <h2>🔑 تسجيل الدخول</h2>
+    <div class="auth-form">
+      <input class="auth-input" type="email" id="loginEmail" placeholder="البريد الإلكتروني">
+      <input class="auth-input" type="password" id="loginPass" placeholder="كلمة المرور">
+      <button class="auth-submit" onclick="doLogin()">دخول</button>
+    </div>
+    <p class="auth-switch">ليس لديك حساب؟ <a onclick="closeModal('loginModal');openModal('signupModal')">إنشاء حساب</a></p>
+  </div>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="modal-overlay" id="signupModal" onclick="handleOverlayClick(event,'signupModal')">
+  <div class="auth-box">
+    <button class="modal-close" onclick="closeModal('signupModal')">✕</button>
+    <h2>📝 إنشاء حساب</h2>
+    <div class="auth-form">
+      <input class="auth-input" type="text" id="signupName" placeholder="الاسم الكامل">
+      <input class="auth-input" type="email" id="signupEmail" placeholder="البريد الإلكتروني">
+      <input class="auth-input" type="password" id="signupPass" placeholder="كلمة المرور">
+      <button class="auth-submit" onclick="doSignup()">إنشاء حساب</button>
+    </div>
+    <p class="auth-switch">لديك حساب؟ <a onclick="closeModal('signupModal');openModal('loginModal')">تسجيل الدخول</a></p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toastEl"></div>
+
+<script>
+// ===== PRODUCTS DATA =====
+// Corrected images and names for Iraqi store with IQD currency
+const PRODUCTS = [
+  // ===== CONSOLES =====
+  // PS5 - corrected image (was keyboard)
+  {id:2,cat:'consoles',brand:'Sony',name:'PlayStation 5 Slim',price:658000,oldPrice:780000,rating:5,reviews:182,desc:'النسخة المطورة الأخف والأنحف من PS5 مع نفس الأداء المذهل',img:'1 (71).jfif',badge:''},
+  // Xbox
+  {id:46,cat:'consoles',brand:'',name:'جهاز العاب زمان',price:198000,oldPrice:278000,rating:5,reviews:67,desc:'جهاز العاب جيل الطيبين يكون معه يدتين و محول بلوتوث و سلك الباور',img:'1 (29).png',badge:''},
+  {id:3,cat:'consoles',brand:'Microsoft',name:'Xbox Series X 1TB',price:738000,oldPrice:858000,rating:5,reviews:201,desc:'أسرع Xbox على الإطلاق مع أداء 4K/120fps وتقنية Quick Resume',img:'1 (9).jfif',badge:''},
+  {id:4,cat:'consoles',brand:'Microsoft',name:'Xbox Series S Carbon Black',price:438000,oldPrice:538000,rating:4,reviews:143,desc:'جهاز Xbox الصغير الاقتصادي بأداء الجيل الجديد',img:'1 (68).jfif',badge:'خصم 19%'},
+  // Nintendo Switch
+  {id:5,cat:'consoles',brand:'Nintendo',name:'Nintendo Switch OLED',price:598000,oldPrice:698000,rating:5,reviews:317,desc:'شاشة OLED نابضة بالألوان للعب في أي مكان مع Joy-Con ملوّنة',img:'1 (41).jfif',badge:''},
+  {id:6,cat:'consoles',brand:'Nintendo',name:'Nintendo Switch Lite - Coral',price:318000,oldPrice:398000,rating:4,reviews:228,desc:'جهاز Nintendo محمول خفيف وبسعر ممتاز للعب في أي وقت',img:'1 (42).jfif',badge:''},
+  {id:7,cat:'consoles',brand:'Nintendo',name:'Nintendo Switch Neon Blue/Red',price:498000,oldPrice:598000,rating:5,reviews:185,desc:'جهاز Nintendo Switch الكلاسيكي مع Joy-Con ازرق وأحمر',img:'1 (43).jfif',badge:''},
+  // VR - Renamed to VR-PS4
+  {id:8,cat:'consoles',brand:'Sony',name:'VR-PS4',price:578000,oldPrice:698000,rating:4,reviews:97,desc:'نظارة الواقع الافتراضي من سوني لتجربة غمر لا مثيل لها',img:'1 (2).jfif',badge:''},
+  {id:9,cat:'consoles',brand:'Meta',name:'Meta Quest 2 VR',price:498000,oldPrice:598000,rating:4,reviews:156,desc:'نظارة VR بلا أسلاك لتجربة واقع افتراضي حرة وسهلة',img:'1 (37).jfif',badge:''},
+  // PS4 - corrected image (was monitor)
+  // Handheld - Renamed Retro Handheld to GAMESIR X2 PRO
+  {id:11,cat:'consoles',brand:'Valve',name:'Steam Deck OLED',price:898000,oldPrice:998000,rating:5,reviews:65,desc:'حاسوب gaming محمول يشغل مكتبة Steam الكاملة في راحة يدك',img:'1 (65).jfif',badge:'جديد'},
+  {id:12,cat:'consoles',name:'Portable Monitor for PS5 Gaming Display',price:598000,oldPrice:698000,rating:4,reviews:78,desc:'جهاز gaming سحابي محمول للعب Xbox وSteam في أي مكان',img:'1 (46).jfif',badge:''},
+  {id:13,cat:'consoles',brand:'GameSir',name:'GAMESIR X2 PRO',price:178000,oldPrice:240000,rating:4,reviews:134,desc:'جهاز ألعاب محمول متوافق مع الهواتف للعب السحابي',img:'1 (70).jfif',badge:''},
+  // Renamed Portable Gaming Device RGB to Legion Go
+    {id:19,cat:'consoles',brand:'Sony',name:'PlayStation 5 Portal',price:2398000,oldPrice:2998000,rating:5,reviews:118,desc:'لابتوب gaming احترافي بمعالج i7 وبطاقة RTX 4060 لأقصى أداء',img:'1 (34).jfif',badge:''},
+  {id:14,cat:'consoles',brand:'Lenovo',name:'Legion Go',price:258000,oldPrice:338000,rating:4,reviews:92,desc:'جهاز Legion Go محمول بشاشة IPS وإضاءة RGB جانبية',img:'1 (35).jfif',badge:''},
+
+  // ===== COMPUTERS =====
+  {id:15,cat:'computers',brand:'MSI',name:'MSI Gaming Desktop Tower RGB',price:1998000,oldPrice:2598000,rating:5,reviews:74,desc:'حاسوب مكتبي gaming بإضاءة RGB ومعالج قوي لجميع الألعاب الثقيلة',img:'1 (2).png',badge:''},
+  {id:18,cat:'computers',brand:'Generic',name:'White Gaming PC Tower',price:1798000,oldPrice:2300000,rating:4,reviews:45,desc:'حاسوب gaming أبيض أنيق مع إضاءة RGB وهيكل زجاجي',img:'1 (30).png',badge:''},
+
+  // ===== ACCESSORIES =====
+  // Controllers
+  {id:49,cat:'accessories',brand:'',name:'SSD 512 for XBOX',price:110000,oldPrice:130000,rating:4,reviews:389,desc:'سعة تخزين لجهاز XBOX بسعة gb512 ',img:'1 (4).jfif',badge:'جديد'},
+  {id:16,cat:'accessories',brand:'REDRAGON',name:'REDRAGON SPEAKER',price:1698000,oldPrice:2198000,rating:4,reviews:88,desc:'حاسوب gaming مخصص بهيكل زجاجي وإضاءة RGB متكاملة',img:'1 (10).png',badge:'خصم 23%'},
+  {id:20,cat:'accessories',brand:'Sony',name:'DualSense PS5 Controller - Gold',price:158000,oldPrice:198000,rating:5,reviews:334,desc:'يد تحكم PS5 الذهبية الحصرية بتقنية اللمس التكيفي',img:'1 (8).png',badge:'حصري'},
+  {id:1,cat:'accessories',brand:'ATTACK SHARK',name:'K.B ATTACK SHARK K75',price:780000,oldPrice:890000,rating:5,reviews:248,desc:'كيبورد سريع الأستجابة احترافي بسعر منافس فيه لوحة تحكم ب تصميم كلاسيكي',img:'1 (17).png',badge:'جديد'},
+  {id:21,cat:'accessories',brand:'Sony',name:'DualSense PS5 Controller - Starlight Blue',price:138000,oldPrice:178000,rating:5,reviews:267,desc:'يد تحكم PS5 بلون الأزرق الليلي مع تقنية haptic feedback',img:'1 (59).jfif',badge:''},
+  {id:22,cat:'accessories',brand:'Sony',name:'DualSense PS5 Controller - Midnight Black',price:138000,oldPrice:178000,rating:5,reviews:198,desc:'يد تحكم PS5 الأسود الأنيق مع trigger adaptifs',img:'1 (60).jfif',badge:''},
+  {id:23,cat:'accessories',brand:'Sony',name:'DualSense PS5 Controller - Grey',price:138000,oldPrice:170000,rating:4,reviews:145,desc:'يد تحكم PS5 الرمادي الكلاسيكي مع كل مزايا DualSense',img:'1 (44).jfif',badge:''},
+  {id:24,cat:'accessories',brand:'Microsoft',name:'Xbox Wireless Controller - Black',price:110000,oldPrice:150000,rating:4,reviews:221,desc:'يد تحكم Xbox لاسلكية بتصميم ارغونومي ومدة بطارية طويلة',img:'1 (3).jfif',badge:''},
+  {id:25,cat:'accessories',brand:'Microsoft',name:'Xbox Wireless Controller - White',price:110000,oldPrice:150000,rating:4,reviews:178,desc:'يد تحكم Xbox بيضاء أنيقة بمقبض مريح',img:'1 (29).jfif',badge:''},
+  {id:26,cat:'accessories',brand:'Microsoft',name:'Xbox Controller - Special Edition',price:150000,oldPrice:198000,rating:5,reviews:89,desc:'يد تحكم Xbox إصدار خاص بألوان فريدة',img:'1 (62).jfif',badge:'حصري'},
+  // Renamed Enhanced Wireless Controller PS5 to GameSir controller
+  {id:27,cat:'accessories',brand:'GameSir',name:'GameSir Controller XBOX',price:90000,oldPrice:130000,rating:4,reviews:112,desc:'يد تحكم GameSir محسّنة لـ PS5 بأزرار إضافية',img:'1 (24).jfif',badge:''},
+  // Renamed Nintendo Switch Pro Controller Blue to GameSir controller
+  {id:28,cat:'accessories',brand:'GameSir',name:'GameSir Controller XBOX',price:130000,oldPrice:170000,rating:5,reviews:94,desc:'يد تحكم GameSir لـ Nintendo Switch الاحترافية',img:'1 (69).jfif',badge:''},
+  // Mice
+  {id:29,cat:'accessories',brand:'GravaStar',name:'GravaStar x pro',price:98000,oldPrice:150000,rating:5,reviews:267,desc:'ماوس gaming باستشعار دقيق 20000 DPI وإضاءة Chroma RGB',img:'1 (7).png',badge:''},
+  // Keyboards
+  {id:30,cat:'accessories',brand:'Razer',name:'Razer Keyboard - Pink Edition',price:178000,oldPrice:258000,rating:5,reviews:198,desc:'لوحة مفاتيح ميكانيكية وردية احترافية',img:'1 (5).jfif',badge:''},
+  {id:31,cat:'accessories',brand:'Redragon',name:'Redragon Keyboard Yellow RGB',price:110000,oldPrice:158000,rating:4,reviews:145,desc:'لوحة مفاتيح gaming صفراء بإضاءة RGB وأداء ميكانيكي',img:'1 (12).jfif',badge:''},
+  {id:32,cat:'accessories',brand:'Generic',name:'Compact Keyboard Mint Green',price:90000,oldPrice:130000,rating:4,reviews:112,desc:'لوحة مفاتيح compact أخضر نعناعي بتصميم عصري',img:'1 (52).jfif',badge:''},
+  {id:33,cat:'accessories',brand:'Generic',name:'TKL Keyboard Pink',price:98000,oldPrice:138000,rating:4,reviews:98,desc:'لوحة مفاتيح TKL وردية بمفاتيح ميكانيكية خفيفة',img:'1 (53).jfif',badge:''},
+  // Headsets
+  {id:34,cat:'accessories',brand:'HyperX',name:'HyperX Gaming Headset H510',price:70000,oldPrice:110000,rating:4,reviews:312,desc:'سماعة gaming بصوت محيطي 7.1 وميكروفون لتصفية الضوضاء',img:'1 (15).jfif',badge:'خصم 36%'},
+  {id:35,cat:'accessories',brand:'HyperX',name:'HyperX Cloud II Gaming Headset',price:130000,oldPrice:178000,rating:5,reviews:421,desc:'سماعة HyperX الاحترافية بصوت محيطي 7.1 وراحة فائقة',img:'1 (73).jfif',badge:''},
+  {id:36,cat:'accessories',brand:'HyperX',name:'HyperX Cloud Wireless Headset',price:158000,oldPrice:218000,rating:5,reviews:234,desc:'سماعة HyperX لاسلكية بجودة صوت استثنائية',img:'1 (51).jfif',badge:''},
+  // Mousepads - corrected image (was hexagonal LED)
+  {id:37,cat:'accessories',brand:'Redragon',name:'Redragon Mouse Pad XL RGB',price:44000,oldPrice:76000,rating:4,reviews:445,desc:'ماوس باد كبير الحجم بإضاءة RGB و14 وضع إضاءة',img:'1 (38).jfif',badge:''},
+  {id:38,cat:'accessories',brand:'Redragon',name:'Redragon Speed Mousepad Black XL',price:30000,oldPrice:50000,rating:4,reviews:312,desc:'ماوس باد أسود XL بسطح ناعم لأقصى دقة',img:'1 (38).jfif',badge:''},
+  // Racing Wheel
+  {id:39,cat:'accessories',brand:'Logitech',name:'Logitech G29 Racing Wheel + Pedals',price:378000,oldPrice:498000,rating:5,reviews:88,desc:'عجلة قيادة احترافية مع دواسات كاملة وتغذية راجعة قوية',img:'1 (36).jfif',badge:''},
+  {id:40,cat:'accessories',brand:'PXN',name:'PXN Racing Wheel V9',price:258000,oldPrice:358000,rating:4,reviews:67,desc:'عجلة قيادة PXN مع دواسات وناقل سرعات لتجربة سباق واقعية',img:'1 (48).jfif',badge:''},
+  // USB Hub
+  {id:41,cat:'accessories',brand:'Generic',name:'Gaming USB-C Hub 7-in-1',price:36000,oldPrice:60000,rating:4,reviews:177,desc:'هاب 7 منافذ - USB، HDMI، SD card وأكثر',img:'1 (14).jfif',badge:''},
+  {id:42,cat:'accessories',brand:'Generic',name:'USB-C Hub Slim 6-in-1',price:30000,oldPrice:50000,rating:4,reviews:134,desc:'هاب USB-C نحيل 6 منافذ للحواسيب واللابتوبات',img:'1 (64).jfif',badge:''},
+  // Controller stand
+  {id:43,cat:'accessories',brand:'Generic',name:'Dual Controller Charging Stand',price:50000,oldPrice:80000,rating:4,reviews:156,desc:'حامل شحن مزدوج لأيدي التحكم بإضاءة LED',img:'1 (7).jfif',badge:''},
+  // Renamed Laptop Cooling Pad RGB to pc Cases
+  {id:44,cat:'accessories',brand:'Generic',name:'PC Cases Gaming RGB',price:40000,oldPrice:70000,rating:4,reviews:198,desc:'كيس حاسوب gaming بإضاءة RGB وتهوية ممتازة',img:'1 (14).png',badge:''},
+  // Xbox controller set
+  // Razer mouse Xbox
+  {id:47,cat:'accessories',brand:'Razer',name:'Razer Gaming Mouse - Xbox Edition',price:118000,oldPrice:170000,rating:5,reviews:112,desc:'ماوس Razer بتصميم Xbox حصري مع استشعار 20K DPI',img:'1 (49).jfif',badge:'حصري'},
+
+  // ===== GAMES =====
+  {id:66,cat:'games',brand:'EA Sports',name:'EA Sports FC26-ps5',price:598000,oldPrice:798000,rating:5,reviews:145,desc:'لعبة كرة قدم ممتعو وسلسة ل جهاز ps5',img:'1 (22).jfif',badge:''},
+  {id:48,cat:'games',brand:'FromSoftware',name:'Elden Ring - Xbox Edition',price:90000,oldPrice:120000,rating:5,reviews:512,desc:'لعبة أكشن RPG أسطورية من صانعي Dark Souls بعالم مفتوح ضخم',img:'1 (23).jfif',badge:''},
+  {id:50,cat:'games',brand:'EA Sports',name:'EA Sports FC 26 - PS4',price:90000,oldPrice:110000,rating:4,reviews:267,desc:'نفس التجربة المميزة لـ FC 26 لجهاز PlayStation 4',img:'1 (27).jfif',badge:''},
+  {id:51,cat:'games',brand:'Capcom',name:'Pragmata - PS5',price:96000,oldPrice:130000,rating:5,reviews:198,desc:'لعبة فظاء و خيال علمي ',img:'1 (47).jfif',badge:''},
+  {id:52,cat:'games',brand:'Square Enix',name:'Fatal Frame 2 - Nintendo Switch',price:76000,oldPrice:110000,rating:5,reviews:145,desc:'Final Fantasy على Nintendo Switch للعب في أي مكان',img:'1 (26).jfif',badge:''},
+  {id:53,cat:'games',brand:'Bethesda',name:'Starfield - Xbox Series X',price:98000,oldPrice:120000,rating:4,reviews:203,desc:'استكشف الفضاء في أضخم لعبة من Bethesda مع +1000 كوكب',img:'1 (61).jfif',badge:''},
+  {id:54,cat:'games',brand:'Sony',name:'Ghost of Yotei - PS5',price:110000,oldPrice:138000,rating:5,reviews:445,desc:'مغامرة سامورائي استثنائية في اليابان القديمة بجرافيكس مبهر',img:'1 (31).jfif',badge:''},
+  {id:55,cat:'games',brand:'Capcom',name:'Resident Evil 4 Remake - PS4',price:90000,oldPrice:120000,rating:5,reviews:267,desc:'إعادة تصور مرعبة للعبة الكلاسيكية الأشهر في التاريخ',img:'1 (54).jfif',badge:''},
+  {id:56,cat:'games',brand:'Capcom',name:'Resident Evil 9 - PS5',price:78000,oldPrice:110000,rating:5,reviews:312,desc:'استمرار مرعبة لسلسلة Resident Evil في قرية مجهولة',img:'1 (55).jfif',badge:''},
+  {id:57,cat:'games',brand:'Ubisoft',name:'Forza Horizon 5 - PS5',price:84000,oldPrice:110000,rating:5,reviews:278,desc:'أجمل لعبة سباقات على الإطلاق في المكسيك بـ 500+ سيارة',img:'1 (19).png',badge:''},
+  {id:58,cat:'games',brand:'Sony',name:'Playstation First Light - PS5',price:70000,oldPrice:100000,rating:4,reviews:189,desc:'قصة حصرية من عالم Marvel\'s Spider-Man بطلها Neon',img:'1 (6).png',badge:''},
+  {id:59,cat:'games',brand:'Focus',name:'Crimson Desert - PS5',price:110000,oldPrice:140000,rating:4,reviews:134,desc:'لعبة RPG مفتوح العالم بجرافيكس استثنائي وقتال ملحمي',img:'1 (19).jfif',badge:'جديد'},
+  {id:60,cat:'games',brand:'2K Sports',name:'WWE 2K26 - PS5',price:110000,oldPrice:130000,rating:4,reviews:178,desc:'أحدث إصدار من لعبة المصارعة الأشهر WWE 2K26',img:'1 (66).jfif',badge:'جديد'},
+  {id:61,cat:'games',brand:'Bandai',name:'Plague Tale Requiem - PS5',price:84000,oldPrice:120000,rating:5,reviews:156,desc:'قصة عاطفية ومشوقة في أوروبا القرون الوسطى المليئة بالجرذان',img:'1 (8).jfif',badge:''},
+  {id:62,cat:'games',brand:'Mojang',name:'Minecraft - PS5 Edition',price:60000,oldPrice:80000,rating:5,reviews:534,desc:'العبة الأكثر مبيعاً في تاريخ الألعاب - ابنِ وأبدع بلا حدود',img:'1 (5).png',badge:''},
+  {id:63,cat:'games',brand:'EA',name:'It Takes Two - PS4',price:56000,oldPrice:80000,rating:5,reviews:422,desc:'لعبة تعاون ثنائية حائزة على جائزة Game of the Year',img:'1 (74).jfif',badge:''},
+  {id:64,cat:'games',brand:'SCS Software',name:'Truck Simulator - PC',price:50000,oldPrice:70000,rating:4,reviews:267,desc:'محاكي الشاحنات الأشهر في العالم بخرائط أوروبية ضخمة',img:'1 (58).jfif',badge:''},
+  {id:65,cat:'games',brand:'LEGO',name:'Pokémon Scarlet - LEGO',price:110000,oldPrice:130000,rating:4,reviews:389,desc:'لعبة تركيب ليجو للاطفال جميلة و منمية للذكاء',img:'1 (11).png',badge:''},
+
+  // ===== CHAIRS =====
+  {id:67,cat:'chairs',brand:'Generic',name:'Racing Style Gaming Chair - White',price:298000,oldPrice:440000,rating:4,reviews:234,desc:'كرسي بتصميم سباقات أبيض مريح مع إمكانية الإمالة 180 درجة',img:'1 (23).png',badge:'خصم 32%'},
+  {id:68,cat:'chairs',brand:'Generic',name:'Premium Leather Gaming Chair',price:398000,oldPrice:558000,rating:4,reviews:178,desc:'كرسي جلد فاخر مع مسند رأس ووسادة قطنية ومسند ذراع',img:'1 (24).png',badge:''},
+  {id:69,cat:'chairs',brand:'Generic',name:'Executive Gaming Chair Brown',price:458000,oldPrice:598000,rating:4,reviews:112,desc:'كرسي مكتبي gaming بني فاخر مع مسند للظهر',img:'1 (26).png',badge:''},
+
+  // ===== MONITORS =====
+  {id:70,cat:'monitors',brand:'ASUS',name:'ASUS TUF Gaming Monitor 27" 165Hz',price:358000,oldPrice:478000,rating:5,reviews:122,desc:'شاشة gaming 27 بوصة 165Hz IPS بوقت استجابة 1ms وألوان دقيقة',img:'1 (33).jfif',badge:''},
+  {id:10,cat:'monitors',brand:'DERDSKULL',name:'MONITOR DERDSKULL',price:398000,oldPrice:498000,rating:4,reviews:312,desc:'شاشة سريعة الاستجابة بدقة عالية وبسعر منافس ',img:'1 (18).png',badge:'خصم 20%'},
+  {id:71,cat:'monitors',brand:'Generic',name:'Gaming Monitor 27" 144Hz IPS',price:278000,oldPrice:378000,rating:4,reviews:98,desc:'شاشة gaming 27 بوصة بتردد 144Hz وألوان IPS واسعة',img:'1 (39).jfif',badge:''},
+
+  // Switch Carry Case (from original)
+  {id:80,cat:'accessories',brand:'Generic',name:'Nintendo Switch Carry Case',price:40000,oldPrice:60000,rating:4,reviews:178,desc:'حافظة حمل Nintendo Switch صلبة مع أماكن للألعاب',img:'1 (32).jfif',badge:''},
+
+  // SSD Storage
+  {id:77,cat:'accessories',brand:'Generic',name:'External SSD 1TB - Black',price:98000,oldPrice:138000,rating:5,reviews:145,desc:'قرص SSD خارجي 1TB بسرعات نقل فائقة للـ PS5 وPC',img:'1 (6).jfif',badge:''},
+
+  // Redragon Controller
+  {id:78,cat:'accessories',brand:'Redragon',name:'Redragon Wired Controller - Black',price:50000,oldPrice:80000,rating:4,reviews:201,desc:'يد تحكم سلكية من Redragon متوافقة مع PC وPS3',img:'1 (16).jfif',badge:''},
+];
+
+// ===== STATE =====
+let currentCat = 'all';
+let cart = [];
+let reviews = {};
+let currentProductId = null;
+let selectedStars = 0;
+let currentPage = 1;
+const PER_PAGE = 12;
+let currentUser = null;
+
+// ===== INIT =====
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loadingScreen').classList.add('hidden'), 1800);
+  renderProducts();
+  loadCart();
+  loadUser();
+  setupStarPicker();
+});
+
+// ===== THEME =====
+function setTheme(t) {
+  if(t === 'light') {
+    document.body.classList.add('light-mode');
+    document.getElementById('darkBtn').classList.remove('active');
+    document.getElementById('lightBtn').classList.add('active');
+  } else {
+    document.body.classList.remove('light-mode');
+    document.getElementById('darkBtn').classList.add('active');
+    document.getElementById('lightBtn').classList.remove('active');
+  }
+  localStorage.setItem('theme', t);
+}
+// Load saved theme
+(function(){
+  const t = localStorage.getItem('theme');
+  if(t) setTheme(t);
+})();
+
+// ===== CATEGORY SWITCH =====
+function switchCat(btn) {
+  document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCat = btn.dataset.cat;
+  currentPage = 1;
+  document.getElementById('priceFilter').value = '';
+  document.getElementById('brandFilter').value = '';
+  document.getElementById('sortFilter').value = 'default';
+  const titles = {all:'🛒 جميع المنتجات',consoles:'🎮 أجهزة الألعاب',computers:'💻 الحاسبات والكمبيوتر',accessories:'🕹️ الملحقات والإكسسوارات',games:'📀 الألعاب',chairs:'🪑 الكراسي',monitors:'🖥️ الشاشات'};
+  document.getElementById('secTitle').textContent = titles[currentCat] || '🛒 المنتجات';
+  renderProducts();
+}
+function switchCatByName(cat) {
+  const btn = document.querySelector(`.nav-tab[data-cat="${cat}"]`);
+  if(btn) switchCat(btn);
+}
+
+// ===== FILTERS =====
+function applyFilters() { currentPage = 1; renderProducts(); }
+function doSearch() {
+  currentPage = 1;
+  renderProducts();
+}
+
+function getFiltered() {
+  let list = currentCat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === currentCat);
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  if(q) list = list.filter(p => p.name.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
+  const price = document.getElementById('priceFilter').value;
+  if(price) list = list.filter(p => {
+    if(price==='0-100000') return p.price<=100000;
+    if(price==='100000-300000') return p.price>100000&&p.price<=300000;
+    if(price==='300000-800000') return p.price>300000&&p.price<=800000;
+    if(price==='800000+') return p.price>800000;
+    return true;
+  });
+  const brand = document.getElementById('brandFilter').value;
+  if(brand) list = list.filter(p => p.brand===brand);
+  const sort = document.getElementById('sortFilter').value;
+  if(sort==='price-asc') list=[...list].sort((a,b)=>a.price-b.price);
+  else if(sort==='price-desc') list=[...list].sort((a,b)=>b.price-a.price);
+  else if(sort==='rating') list=[...list].sort((a,b)=>b.rating-a.rating);
+  else if(sort==='name') list=[...list].sort((a,b)=>a.name.localeCompare(b.name,'ar'));
+  return list;
+}
+
+// ===== RENDER PRODUCTS =====
+function renderProducts() {
+  const list = getFiltered();
+  const total = list.length;
+  const start = (currentPage-1)*PER_PAGE;
+  const paged = list.slice(start, start+PER_PAGE);
+  document.getElementById('resultsCount').innerHTML = `عرض <strong>${Math.min(start+paged.length, total)}</strong> من <strong>${total}</strong>`;
+  const grid = document.getElementById('productsGrid');
+  if(!paged.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--text-muted);font-size:18px">😔 لا توجد منتجات تطابق البحث</div>'; document.getElementById('pagination').innerHTML=''; return; }
+  grid.innerHTML = paged.map(p => `
+    <div class="product-card" onclick="openProduct(${p.id})">
+      ${p.badge?`<div class="p-badge ${p.badge==='جديد'?'badge-new':p.badge==='حصري'?'badge-hot':'badge-sale'}">${p.badge}</div>`:''}
+      <button class="p-wish" onclick="toggleWish(event,this)" aria-label="مفضلة">♡</button>
+      <div class="product-img-wrap">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.style.fontSize='60px';this.alt='🎮'">
+      </div>
+      <div class="product-body">
+        <div class="p-brand">${p.brand}</div>
+        <div class="p-name">${p.name}</div>
+        <div class="p-stars">${'★'.repeat(p.rating)}${'☆'.repeat(5-p.rating)} <span>(${p.reviews})</span></div>
+        <div class="p-price">
+          <span class="current">${formatIQD(p.price)}</span>
+          ${p.oldPrice?`<span class="old">${formatIQD(p.oldPrice)}</span><span class="save">وفّر ${formatIQD(p.oldPrice-p.price)}</span>`:''}
+        </div>
+        <div class="p-footer">
+          <button class="add-btn" onclick="quickAdd(event,${p.id})">+ أضف للسلة</button>
+          <button class="quick-btn" onclick="openProduct(${p.id})" title="عرض سريع">👁</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  // Pagination
+  const totalPages = Math.ceil(total/PER_PAGE);
+  let pages = '';
+  if(totalPages>1){
+    pages += `<button class="page-btn" onclick="goPage(${Math.max(1,currentPage-1)})">‹</button>`;
+    for(let i=1;i<=totalPages;i++){
+      if(i===1||i===totalPages||Math.abs(i-currentPage)<=1) pages+=`<button class="page-btn ${i===currentPage?'active':''}" onclick="goPage(${i})">${i}</button>`;
+      else if(Math.abs(i-currentPage)===2) pages+=`<span style="color:var(--text-muted);padding:0 4px">…</span>`;
+    }
+    pages += `<button class="page-btn" onclick="goPage(${Math.min(totalPages,currentPage+1)})">›</button>`;
+  }
+  document.getElementById('pagination').innerHTML=pages;
+}
+
+// Format Iraqi Dinar
+function formatIQD(num) {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + ' د.ع';
+}
+
+function goPage(n){ currentPage=n; renderProducts(); window.scrollTo({top:0,behavior:'smooth'}); }
+
+// ===== WISHLIST =====
+function toggleWish(e,btn){ e.stopPropagation(); const on=btn.textContent==='♥'; btn.textContent=on?'♡':'♥'; btn.style.color=on?'':'#e74c3c'; btn.style.borderColor=on?'':'#e74c3c'; if(!on) toast('❤️ تمت الإضافة للمفضلة'); }
+
+// ===== PRODUCT MODAL =====
+function openProduct(id){
+  const p = PRODUCTS.find(x=>x.id===id);
+  if(!p) return;
+  currentProductId = id;
+  document.getElementById('mImg').src = p.img;
+  document.getElementById('mImg').alt = p.name;
+  document.getElementById('mBrand').textContent = p.brand;
+  document.getElementById('mTitle').textContent = p.name;
+  document.getElementById('mStars').textContent = '★'.repeat(p.rating)+'☆'.repeat(5-p.rating)+` (${p.reviews} تقييم)`;
+  document.getElementById('mPrice').textContent = formatIQD(p.price);
+  document.getElementById('mOld').textContent = p.oldPrice ? formatIQD(p.oldPrice) : '';
+  document.getElementById('mDesc').textContent = p.desc;
+  document.getElementById('qtyInput').value = 1;
+  document.getElementById('mAddBtn').onclick = () => { addToCart(id, parseInt(document.getElementById('qtyInput').value)); closeModal('productModal'); };
+  loadReviews(id);
+  openModal('productModal');
+}
+function changeQty(d){ const i=document.getElementById('qtyInput'); i.value=Math.max(1,parseInt(i.value)+d); }
+
+// ===== CART =====
+function quickAdd(e,id){ e.stopPropagation(); addToCart(id,1); }
+function addToCart(id,qty=1){
+  const p = PRODUCTS.find(x=>x.id===id);
+  const ex = cart.find(x=>x.id===id);
+  if(ex) ex.qty+=qty;
+  else cart.push({id,qty,name:p.name,price:p.price,img:p.img,brand:p.brand});
+  saveCart(); updateCartUI();
+  toast(`✅ تمت الإضافة: ${p.name}`);
+}
+function removeFromCart(id){ cart=cart.filter(x=>x.id!==id); saveCart(); updateCartUI(); }
+function changeCartQty(id,d){ const item=cart.find(x=>x.id===id); if(item){item.qty=Math.max(1,item.qty+d); saveCart(); updateCartUI();} }
+function updateCartUI(){
+  const count=cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cartCount').textContent=count;
+  const body=document.getElementById('cartBody');
+  if(!cart.length){ body.innerHTML='<div class="cart-empty-msg">😔 سلتك فارغة!<br>ابدأ التسوق الآن</div>'; }
+  else {
+    body.innerHTML=cart.map(item=>`
+      <div class="cart-item">
+        <div class="ci-img"><img src="${item.img}" alt="${item.name}"></div>
+        <div class="ci-info">
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-price">${formatIQD(item.price)}</div>
+          <div class="ci-controls">
+            <button class="ci-ctrl-btn" onclick="changeCartQty(${item.id},-1)">−</button>
+            <span class="ci-qty">${item.qty}</span>
+            <button class="ci-ctrl-btn" onclick="changeCartQty(${item.id},1)">+</button>
+            <button class="ci-del" onclick="removeFromCart(${item.id})" title="حذف">🗑</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+  }
+  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  document.getElementById('cartTotal').textContent=formatIQD(total);
+}
+function saveCart(){ localStorage.setItem('gl_cart',JSON.stringify(cart)); }
+function loadCart(){ const d=localStorage.getItem('gl_cart'); if(d){cart=JSON.parse(d);} updateCartUI(); }
+
+// ===== REVIEWS =====
+function setupStarPicker(){
+  document.querySelectorAll('.star-pick').forEach(s=>{
+    s.addEventListener('click',()=>{
+      selectedStars=parseInt(s.dataset.v);
+      document.querySelectorAll('.star-pick').forEach((x,i)=>x.classList.toggle('lit',i<selectedStars));
+    });
+  });
+}
+function loadReviews(id){
+  const list=(reviews[id]||[]);
+  const cont=document.getElementById('reviewsList');
+  if(!list.length){ cont.innerHTML='<p style="color:var(--text-muted);font-size:13px;margin-bottom:12px">لا توجد مراجعات بعد — كن أول من يقيّم!</p>'; return; }
+  cont.innerHTML=list.map(r=>`<div class="review-card"><div class="rev-author">${r.author}</div><div class="rev-stars">${'★'.repeat(r.stars)}</div><div class="rev-text">${r.text}</div></div>`).join('');
+}
+function submitReview(){
+  if(!selectedStars){ toast('⭐ اختر تقييماً أولاً'); return; }
+  const text=document.getElementById('revText').value.trim();
+  if(!text){ toast('✏️ اكتب مراجعتك أولاً'); return; }
+  if(!reviews[currentProductId]) reviews[currentProductId]=[];
+  reviews[currentProductId].unshift({author:currentUser?currentUser.name:'زائر',stars:selectedStars,text});
+  loadReviews(currentProductId);
+  document.getElementById('revText').value='';
+  selectedStars=0;
+  document.querySelectorAll('.star-pick').forEach(s=>s.classList.remove('lit'));
+  toast('🙏 شكراً على تقييمك!');
+}
+
+// ===== AUTH =====
+function doLogin(){
+  const email=document.getElementById('loginEmail').value;
+  const pass=document.getElementById('loginPass').value;
+  if(!email||!pass){ toast('❌ أدخل البريد وكلمة المرور'); return; }
+  currentUser={name:email.split('@')[0],email};
+  localStorage.setItem('gl_user',JSON.stringify(currentUser));
+  updateUserUI(); closeModal('loginModal');
+  toast(`👋 مرحباً بعودتك ${currentUser.name}!`);
+}
+function doSignup(){
+  const name=document.getElementById('signupName').value;
+  const email=document.getElementById('signupEmail').value;
+  const pass=document.getElementById('signupPass').value;
+  if(!name||!email||!pass){ toast('❌ أكمل جميع الحقول'); return; }
+  currentUser={name,email};
+  localStorage.setItem('gl_user',JSON.stringify(currentUser));
+  updateUserUI(); closeModal('signupModal');
+  toast(`🎉 مرحباً ${name}! تم إنشاء حسابك`);
+}
+function logout(){
+  currentUser=null; localStorage.removeItem('gl_user'); updateUserUI();
+  toast('👋 تم تسجيل الخروج بنجاح');
+}
+function updateUserUI(){
+  const lbl=document.getElementById('userBtnLabel');
+  const lo=document.getElementById('logoutLink');
+  if(currentUser){ lbl.textContent=currentUser.name.slice(0,10); lo.style.display='block'; }
+  else { lbl.textContent='حسابي'; lo.style.display='none'; }
+}
+function loadUser(){ const d=localStorage.getItem('gl_user'); if(d){currentUser=JSON.parse(d); updateUserUI();} }
+
+// ===== MODALS =====
+function openModal(id){ document.getElementById(id).classList.add('open'); document.body.style.overflow='hidden'; }
+function closeModal(id){ document.getElementById(id).classList.remove('open'); document.body.style.overflow=''; }
+function handleOverlayClick(e,id){ if(e.target===document.getElementById(id)) closeModal(id); }
+function openCart(){ document.getElementById('cartOverlay').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeCart(){ document.getElementById('cartOverlay').classList.remove('open'); document.body.style.overflow=''; }
+
+// ===== USER MENU =====
+function toggleUserMenu(){ document.getElementById('userDropdown').classList.toggle('open'); }
+function closeUserMenu(){ document.getElementById('userDropdown').classList.remove('open'); }
+document.addEventListener('click',e=>{ if(!e.target.closest('#userBtn')&&!e.target.closest('#userDropdown')) closeUserMenu(); });
+
+// ===== SEARCH ON ENTER =====
+document.getElementById('searchInput').addEventListener('keydown',e=>{ if(e.key==='Enter') doSearch(); });
+
+// ===== TOAST =====
+function toast(msg){
+  const el=document.getElementById('toastEl');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),3000);
+}
+</script>
+</body>
+</html>
